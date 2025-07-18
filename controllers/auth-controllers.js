@@ -69,7 +69,11 @@ export const signIn = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // true if your frontend is served over HTTPS
+      sameSite: "None", // Allows cross-site cookie
+    });
 
     res.status(200).json({
       success: true,
