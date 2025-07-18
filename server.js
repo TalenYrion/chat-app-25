@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app); // <-- use this instead of app.listen
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://chat-app-front-2c6r.onrender.com",
     credentials: true,
   },
 });
@@ -26,7 +26,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://chat-app-front-2c6r.onrender.com",
     credentials: true,
     methods: ["GET", "POST", "PUT"],
   })
