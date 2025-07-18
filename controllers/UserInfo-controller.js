@@ -4,7 +4,7 @@ import uploadToCloudniary from "../helper/upload-cloudinary.js";
 export const CreateUser = async (req, res) => {
   try {
     const { bio } = req.body;
-    const filePath = req.file?.path;
+    const filePath = req.file;
 
     let imageUrl =
       "https://res.cloudinary.com/dkstruibg/image/upload/v1751649536/ug69lkwsxic8ahziaaba.png"; // default placeholder
@@ -12,7 +12,7 @@ export const CreateUser = async (req, res) => {
 
     // If a file was uploaded, replace default image
     if (filePath) {
-      const uploadResult = await uploadToCloudniary(filePath);
+      const uploadResult = await uploadToCloudniary(filePath.buffer);
       imageUrl = uploadResult.imageUrl;
       imageId = uploadResult.imageId;
     }

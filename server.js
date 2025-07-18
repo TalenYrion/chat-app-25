@@ -13,20 +13,23 @@ import cookiesParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
+const CLIENT_URL = process.env.CLIENT_URL;
 const server = http.createServer(app); // <-- use this instead of app.listen
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-app-front-2c6r.onrender.com",
+    origin: CLIENT_URL,
     credentials: true,
   },
 });
+
+// https://chat-app-front-2c6r.onrender.com
 
 const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://chat-app-front-2c6r.onrender.com",
+    origin: CLIENT_URL,
     credentials: true,
     methods: ["GET", "POST", "PUT"],
   })
