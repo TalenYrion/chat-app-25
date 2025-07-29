@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import http from "http"; // <-- added
-import { Server } from "socket.io"; // <-- added
+import http from "http";
+import { Server } from "socket.io";
 import connecteToDB from "./database/db.js";
 import authRouter from "./routes/auth-route.js";
 import middlewareRoute from "./routes/middleware-route.js";
@@ -14,7 +14,7 @@ import cors from "cors";
 
 const app = express();
 const CLIENT_URL = process.env.CLIENT_URL;
-const server = http.createServer(app); // <-- use this instead of app.listen
+const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: CLIENT_URL,
@@ -42,14 +42,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// your existing routes
 app.use("/auth", authRouter);
 app.use("/security", middlewareRoute);
 app.use("/user", userRouter);
 app.use("/chat", chatRouter);
 app.use("/userInfo", userInfoRouter);
 
-// 🧠 Add socket.io logic here
 export const connectedUsers = {};
 
 io.on("connection", (socket) => {
@@ -82,9 +80,6 @@ io.on("connection", (socket) => {
 
         console.log("data: ", senderId, " ", message);
       }
-
-      // Save to DB here (MongoDB):
-      // Message.create({ senderId, receiverId, message, imageFile, timestamp: new Date() });
     }
   );
 
@@ -99,7 +94,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// 🟢 Start server
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
